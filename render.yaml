@@ -1,0 +1,17 @@
+# Optional Render Blueprint.
+# You can deploy backend and frontend separately for a simple production setup.
+
+services:
+  - type: web
+    name: youtube-watch-party-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker --workers 1 --bind 0.0.0.0:$PORT app:app
+
+  - type: web
+    name: youtube-watch-party-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: frontend/dist
