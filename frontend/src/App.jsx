@@ -258,10 +258,13 @@ function App() {
 
     return () => {
       window.clearInterval(intervalRef.current);
-      wsRef.current?.close();
-      playerRef.current?.destroy?.();
     };
   }, [screen]);
+
+  useEffect(() => () => {
+    wsRef.current?.close();
+    playerRef.current?.destroy?.();
+  }, []);
 
   function createRoom() {
     const code = makeRoomCode();
