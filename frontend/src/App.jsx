@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const productionApiUrl = "https://youtube-watch-party-api-1gvx.onrender.com";
-const isProduction = window.location.hostname.endsWith("onrender.com");
-const API_URL = import.meta.env.VITE_API_URL || (isProduction ? productionApiUrl : "http://localhost:5000");
+const isLocalDevelopment = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const API_URL = import.meta.env.VITE_API_URL || (isLocalDevelopment ? "http://localhost:5000" : productionApiUrl);
 const WS_URL = import.meta.env.VITE_WS_URL || API_URL.replace(/^http/, "ws") + "/ws";
 
 function makeRoomCode() {
